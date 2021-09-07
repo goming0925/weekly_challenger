@@ -37,7 +37,6 @@ public class convertEngToNum {
         int answer = 0;
         String tempAnswer = "";	// 계산용 문자열
         
-        int i = 0;	//문자열 위치정보
         while (s.length() > 0) {
         	char c = s.charAt(0);	// 현재 문자열 첫자리
         	switch (c) {
@@ -89,7 +88,6 @@ public class convertEngToNum {
         		s = s.substring(1);
         		break;
         	}
-        	i++;
         }
         answer = Integer.parseInt(tempAnswer);
         
