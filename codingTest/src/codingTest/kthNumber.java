@@ -23,13 +23,14 @@ public class kthNumber {
 	 */
 	
 	public static int[] solution(int[] array, int[][] commands) {
-        int[] answer = {};
+        int[] answer = new int[commands.length];
+        int index = 0;
         
         for (int[] command : commands) {
         	int tempArrayStart = command[0] - 1;	// 배열 시작점 i
         	int tempArrayEnd = command[1] - 1;		// 배열 종료점 j
         	int tempArrayLength = command[1] - command[0] + 1; 	// 배열의 길이
-        	int kthNumber = command[2];				// 정렬된 배열의 지정 주소값
+        	int kthNumber = command[2]-1;				// 정렬된 배열의 지정 주소값
         	int[] tempArray = new int[tempArrayLength];	// 계산용 배열의 길이만큼 생성
         	
         	int j = 0;
@@ -39,6 +40,9 @@ public class kthNumber {
         	System.out.println(Arrays.toString(tempArray));
         	
         	//sort 함수실행 후 kthNumber 번째 숫자 반환
+        	System.out.println("sort -> " + Arrays.toString(sort(tempArray)));
+        	tempArray = sort(tempArray);
+        	answer[index++] = tempArray[kthNumber];
         }
         
         
@@ -46,8 +50,24 @@ public class kthNumber {
     }
 	
 	public static int[] sort(int[] array) {
+		for (int i = 1; i < array.length; i++) {
+			int baseValue = array[i];
+			int j;
+			for (j = i-1; j >= 0 && array[j] > baseValue; j--) {
+				array[j+1] = array[j];
+			}
+			array[j+1] = baseValue;
+		}
+		
 		
 		return array;
+	}
+	
+	public static void swap(int[] array, int a, int b) {
+		int temp = array[a];
+		array[a] = array[b];
+		array[b] = temp;
+		System.out.println(Arrays.toString(array));
 	}
 	
 	public static void main(String[] args) {
@@ -55,6 +75,6 @@ public class kthNumber {
 		int[][] commands = {{2, 5, 3}, {4, 4, 1}, {1, 7, 3}};
 		
 		int[] answer = solution(array, commands);
-		System.out.println(answer);
+		System.out.println(Arrays.toString(answer));
 	}
 }
